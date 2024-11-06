@@ -112,20 +112,19 @@ Make sure to include the code to derive the (numeric) fact for the statement
 
 ```{r}
 
-# Assuming the 'deaths' dataset has already been created
-# Fact-check: Calculate the number of unique Avengers who have died at least once
-
+# Calculate the number of unique Avengers who have died at least once
 unique_deaths <- deaths %>%
-  filter(Died == "YES", deaths >= 1) %>%
-  summarise(died_at_least_once = n_distinct(Name.Alias))
+  filter(deaths >= 1, Died == "YES") %>%
+  summarise(died_at_least_once = n_distinct(URL))
 
-# Calculate the total number of Avengers
+# Calculate the total number of Avengers from the original dataset
 total_avengers <- av %>%
-  summarise(total = n_distinct(Name.Alias))
+  summarise(total = n_distinct(URL))
 
 # Display the results
 cat("Total Avengers:", total_avengers$total, "\n")
 cat("Avengers who died at least once:", sum(unique_deaths$died_at_least_once), "\n")
+
 
 
 
