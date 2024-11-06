@@ -59,9 +59,17 @@ deaths <- deaths %>%
   summarise(deaths = max(Time)) %>%
   filter(Name.Alias != "") %>%
   filter(Died != "")
-  
-View(deaths)
 
+
+# Calculate the average number of deaths an Avenger suffers
+# Filter out blank values and count "yes" entries
+avg_deaths <- deaths %>%
+  group_by(Name.Alias) %>%
+  summarise(death_count = n()) %>%
+  summarise(average_deaths = mean(death_count))
+
+  
+avg_deaths
 ```
 
 ## Individually
