@@ -47,22 +47,22 @@ deaths <- av %>%
     values_to = "Died"
   ) %>% 
   select(
-    Name.Alias,
+    URL,
     Time, Died
   ) %>% 
   mutate(
     Time = parse_number(Time)
     ) %>%
-  group_by(Name.Alias,Died) %>%
+  group_by(URL,Died) %>%
   summarise(deaths = max(Time)) %>%
-  filter(Name.Alias != "") %>%
+  filter(URL != "") %>%
   filter(Died != "")
 
 
 # Calculate the average number of deaths an Avenger suffers
 # Filter out blank values and count "yes" entries
 avg_deaths <- deaths %>%
-  group_by(Name.Alias) %>%
+  group_by(URL) %>%
   summarise(death_count = n()) %>%
   summarise(average_deaths = mean(death_count))
 
@@ -78,18 +78,20 @@ returns <- av %>%
     values_to = "Return"
   ) %>% 
   select(
-    Name.Alias,
+    URL,
     Time, Return
   ) %>% 
   mutate(
     Time = parse_number(Time)
     ) %>%
-  group_by(Name.Alias,Return) %>%
+  group_by(URL,Return) %>%
   summarise(returns = max(Time)) %>%
-  filter(Name.Alias != "") %>%
+  filter(URL != "") %>%
   filter(Return != "")
   
 View(returns)
+
+
 
 ```
 
@@ -141,13 +143,21 @@ Each team member picks one of the statements in the FiveThirtyEight [analysis](h
 
 ### FiveThirtyEight Statement
 
-> Quote the statement you are planning to fact-check.
+> 57 occasions the individual made a comeback.
 
-### Include the code
+### Code
 
-Make sure to include the code to derive the (numeric) fact for the statement
+```{r}
+return_count = returns %>%
+  filter(returns >= 2)%>%
+  summarise(return_count = sum(returns)) %>%
+  ungroup()
 
-### Include your answer
+
+return_count
+```
+
+### Answer
 
 Include at least one sentence discussing the result of your fact-checking endeavor.
 
