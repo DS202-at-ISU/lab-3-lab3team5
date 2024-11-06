@@ -1,6 +1,4 @@
 
-<!-- README.md is generated from README.Rmd. Please edit the README.Rmd file -->
-
 # Lab report \#3 - instructions
 
 Follow the instructions posted at
@@ -65,6 +63,10 @@ head(av)
     ## 5                                                      Dies in Fear Itself brought back because that's kind of the whole point. Second death in Time Runs Out has not yet returned
     ## 6                                                                                                                                                                             <NA>
 
+``` r
+View(av)
+```
+
 Get the data into a format where the five columns for Death\[1-5\] are
 replaced by two columns: Time, and Death. Time should be a number
 between 1 and 5 (look into the function `parse_number`); Death is a
@@ -76,9 +78,170 @@ Similarly, deal with the returns of characters.
 Based on these datasets calculate the average number of deaths an
 Avenger suffers.
 
+``` r
+# Deaths
+
+deaths <- av %>% 
+  pivot_longer(
+    starts_with("Death"),
+    names_to = "Time",
+    values_to = "Died"
+  ) %>% 
+  select(
+    URL,
+    Time, Died
+  ) %>% 
+  mutate(
+    Time = parse_number(Time)
+    ) %>%
+  group_by(URL,Died) %>%
+  summarise(deaths = max(Time)) %>%
+  filter(URL != "") %>%
+  filter(Died != "", Died != "NO")
+```
+
+    ## `summarise()` has grouped output by 'URL'. You can override using the `.groups`
+    ## argument.
+
+``` r
+# Calculate the average number of deaths an Avenger suffers
+# Filter out blank values and count "yes" entries
+totalDeath = sum(deaths$deaths)
+AverageDeath = mean(deaths$deaths)
+totalDeath
+```
+
+    ## [1] 89
+
+``` r
+AverageDeath
+```
+
+    ## [1] 1.289855
+
+``` r
+# returns 
+returnTimes <- av %>% 
+  pivot_longer(
+    starts_with("Return"),
+    names_to = "Time",
+    values_to = "Return"
+  ) %>% 
+  select(
+    URL,
+    Time, Return
+  ) %>% 
+  mutate(
+    Time = parse_number(Time)
+    ) %>%
+  group_by(URL,Return) %>%
+  summarise(returns = max(Time)) %>%
+  filter(URL != "") %>%
+  filter(Return != "")
+```
+
+    ## `summarise()` has grouped output by 'URL'. You can override using the `.groups`
+    ## argument.
+
+``` r
+View(returnTimes)
+```
+
 ## Individually
 
 For each team member, copy this part of the report.
+
+### Alister
+
+Each team member picks one of the statements in the FiveThirtyEight
+[analysis](https://fivethirtyeight.com/features/avengers-death-comics-age-of-ultron/)
+and fact checks it based on the data. Use dplyr functionality whenever
+possible.
+
+### FiveThirtyEight Statement
+
+Out of 173 listed Avengers, my analysis found that 69 had died at least
+one time after they joined the team
+
+### Include the code
+
+Make sure to include the code to derive the (numeric) fact for the
+statement
+
+``` r
+# Calculate the number of unique Avengers who have died at least once
+unique_deaths <- deaths %>%
+  filter(deaths >= 1, Died == "YES") %>%
+  summarise(died_at_least_once = n_distinct(URL))
+
+# Calculate the total number of Avengers from the original dataset
+total_avengers <- av %>%
+  summarise(total = n_distinct(URL))
+
+# Display the results
+cat("Total Avengers:", total_avengers$total, "\n")
+```
+
+    ## Total Avengers: 173
+
+``` r
+cat("Avengers who died at least once:", sum(unique_deaths$died_at_least_once), "\n")
+```
+
+    ## Avengers who died at least once: 69
+
+### Include your answer
+
+Include at least one sentence discussing the result of your
+fact-checking endeavor.
+
+### Brietta
+
+Each team member picks one of the statements in the FiveThirtyEight
+[analysis](https://fivethirtyeight.com/features/avengers-death-comics-age-of-ultron/)
+and fact checks it based on the data. Use dplyr functionality whenever
+possible.
+
+### FiveThirtyEight Statement
+
+> 57 occasions the individual made a comeback.
+
+### Code
+
+``` r
+returnTimes %>% 
+  filter(Return == "YES")
+```
+
+    ## # A tibble: 46 × 3
+    ## # Groups:   URL [46]
+    ##    URL                                                 Return returns
+    ##    <chr>                                               <chr>    <dbl>
+    ##  1 http://marvel.wikia.com/2ZP45-9-X-51_(Earth-616)#   YES          1
+    ##  2 http://marvel.wikia.com/Anthony_Druid_(Earth-616)#  YES          2
+    ##  3 http://marvel.wikia.com/Anthony_Stark_(Earth-616)   YES          1
+    ##  4 http://marvel.wikia.com/Ares_(Earth-616)#           YES          1
+    ##  5 http://marvel.wikia.com/Barbara_Morse_(Earth-616)#  YES          1
+    ##  6 http://marvel.wikia.com/Benjamin_Grimm_(Earth-616)# YES          1
+    ##  7 http://marvel.wikia.com/Cassandra_Lang_(Earth-616)# YES          1
+    ##  8 http://marvel.wikia.com/Clint_Barton_(Earth-616)    YES          2
+    ##  9 http://marvel.wikia.com/DeMarr_Davis_(Earth-616)#   YES          1
+    ## 10 http://marvel.wikia.com/Deathcry_(Earth-616)#       YES          1
+    ## # ℹ 36 more rows
+
+``` r
+sum(returnTimes$returns)
+```
+
+    ## [1] 99
+
+### Answer
+
+My code shows that 99 times the avengers had a return after dying, which
+is much higher than the articles claim of 57 occasions that someone came
+back
+
+### Brianna
 
 Each team member picks one of the statements in the FiveThirtyEight
 [analysis](https://fivethirtyeight.com/features/avengers-death-comics-age-of-ultron/)

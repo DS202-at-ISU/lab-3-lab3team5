@@ -61,17 +61,14 @@ deaths <- av %>%
 
 # Calculate the average number of deaths an Avenger suffers
 # Filter out blank values and count "yes" entries
-avg_deaths <- deaths %>%
-  group_by(URL) %>%
-  summarise(death_count = n()) %>%
-  summarise(average_deaths = mean(death_count))
-
-  
-avg_deaths
+totalDeath = sum(deaths$deaths)
+AverageDeath = mean(deaths$deaths)
+totalDeath
+AverageDeath
 
 
 # returns 
-returns <- av %>% 
+returnTimes <- av %>% 
   pivot_longer(
     starts_with("Return"),
     names_to = "Time",
@@ -89,7 +86,7 @@ returns <- av %>%
   filter(URL != "") %>%
   filter(Return != "")
   
-View(returns)
+View(returnTimes)
 
 
 
@@ -99,7 +96,8 @@ View(returns)
 
 For each team member, copy this part of the report. 
 
-#Alister
+### Alister
+
 Each team member picks one of the statements in the FiveThirtyEight [analysis](https://fivethirtyeight.com/features/avengers-death-comics-age-of-ultron/) and fact checks it based on the data. Use dplyr functionality whenever possible.
 
 ### FiveThirtyEight Statement
@@ -137,7 +135,8 @@ cat("Avengers who died at least once:", sum(unique_deaths$died_at_least_once), "
 
 Include at least one sentence discussing the result of your fact-checking endeavor.
 
-#Brietta
+### Brietta
+
 Each team member picks one of the statements in the FiveThirtyEight [analysis](https://fivethirtyeight.com/features/avengers-death-comics-age-of-ultron/) and fact checks it based on the data. Use dplyr functionality whenever possible.
 
 ### FiveThirtyEight Statement
@@ -147,22 +146,20 @@ Each team member picks one of the statements in the FiveThirtyEight [analysis](h
 ### Code
 
 ```{r}
-return_count = returns %>%
-  filter(returns >= 2)%>%
-  summarise(return_count = n()) %>%
-  summarise(return_count = sum(return_count)) %>%
-  ungroup()
+returnTimes %>% 
+  filter(Return == "YES")
 
+sum(returnTimes$returns)
 
-return_count
 ```
 
 ### Answer
 
-My code shows that only 17 times the avengers had a return after dying, which is much lower than the articles claim of 57 ocasions that someone came back
+My code shows that 99 times the avengers had a return after dying, which is much higher than the articles claim of 57 occasions that someone came back
 
 
-#Brianna
+### Brianna
+
 Each team member picks one of the statements in the FiveThirtyEight [analysis](https://fivethirtyeight.com/features/avengers-death-comics-age-of-ultron/) and fact checks it based on the data. Use dplyr functionality whenever possible.
 
 ### FiveThirtyEight Statement
