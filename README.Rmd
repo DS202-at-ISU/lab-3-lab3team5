@@ -35,6 +35,10 @@ Similarly, deal with the returns of characters.
 
 Based on these datasets calculate the average number of deaths an Avenger suffers. 
 
+```{r}
+
+```
+
 ## Individually
 
 For each team member, copy this part of the report. 
