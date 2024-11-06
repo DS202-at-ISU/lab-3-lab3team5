@@ -56,7 +56,7 @@ deaths <- av %>%
   group_by(URL,Died) %>%
   summarise(deaths = max(Time)) %>%
   filter(URL != "") %>%
-  filter(Died != "")
+  filter(Died != "", Died != "NO")
 
 
 # Calculate the average number of deaths an Avenger suffers
@@ -126,7 +126,8 @@ Each team member picks one of the statements in the FiveThirtyEight [analysis](h
 ```{r}
 return_count = returns %>%
   filter(returns >= 2)%>%
-  summarise(return_count = sum(returns)) %>%
+  summarise(return_count = n()) %>%
+  summarise(return_count = sum(return_count)) %>%
   ungroup()
 
 
@@ -135,7 +136,7 @@ return_count
 
 ### Answer
 
-Include at least one sentence discussing the result of your fact-checking endeavor.
+My code shows that only 17 times the avengers had a return after dying, which is much lower than the articles claim of 57 ocasions that someone came back
 
 
 #Brianna
