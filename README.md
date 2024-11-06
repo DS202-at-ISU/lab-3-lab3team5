@@ -147,11 +147,11 @@ returnTimes <- av %>%
 View(returnTimes)
 ```
 
-## Individually
+# Individually
 
 For each team member, copy this part of the report.
 
-### Alister
+## Alister
 
 Each team member picks one of the statements in the FiveThirtyEight
 [analysis](https://fivethirtyeight.com/features/avengers-death-comics-age-of-ultron/)
@@ -195,7 +195,7 @@ cat("Avengers who died at least once:", sum(unique_deaths$died_at_least_once), "
 Include at least one sentence discussing the result of your
 fact-checking endeavor.
 
-### Brietta
+## Brietta
 
 Each team member picks one of the statements in the FiveThirtyEight
 [analysis](https://fivethirtyeight.com/features/avengers-death-comics-age-of-ultron/)
@@ -209,39 +209,21 @@ possible.
 ### Code
 
 ``` r
-returnTimes %>% 
+returnTimes = returnTimes %>% 
   filter(Return == "YES")
-```
 
-    ## # A tibble: 46 × 3
-    ## # Groups:   URL [46]
-    ##    URL                                                 Return returns
-    ##    <chr>                                               <chr>    <dbl>
-    ##  1 http://marvel.wikia.com/2ZP45-9-X-51_(Earth-616)#   YES          1
-    ##  2 http://marvel.wikia.com/Anthony_Druid_(Earth-616)#  YES          2
-    ##  3 http://marvel.wikia.com/Anthony_Stark_(Earth-616)   YES          1
-    ##  4 http://marvel.wikia.com/Ares_(Earth-616)#           YES          1
-    ##  5 http://marvel.wikia.com/Barbara_Morse_(Earth-616)#  YES          1
-    ##  6 http://marvel.wikia.com/Benjamin_Grimm_(Earth-616)# YES          1
-    ##  7 http://marvel.wikia.com/Cassandra_Lang_(Earth-616)# YES          1
-    ##  8 http://marvel.wikia.com/Clint_Barton_(Earth-616)    YES          2
-    ##  9 http://marvel.wikia.com/DeMarr_Davis_(Earth-616)#   YES          1
-    ## 10 http://marvel.wikia.com/Deathcry_(Earth-616)#       YES          1
-    ## # ℹ 36 more rows
-
-``` r
 sum(returnTimes$returns)
 ```
 
-    ## [1] 99
+    ## [1] 57
 
 ### Answer
 
-My code shows that 99 times the avengers had a return after dying, which
-is much higher than the articles claim of 57 occasions that someone came
-back
+My code shows that 57 times the avengers had a return after dying, which
+is exactly the same number that the articles claimed for number of
+occasions that someone came back after dying.
 
-### Brianna
+## Brianna
 
 Each team member picks one of the statements in the FiveThirtyEight
 [analysis](https://fivethirtyeight.com/features/avengers-death-comics-age-of-ultron/)

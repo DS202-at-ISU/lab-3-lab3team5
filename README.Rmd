@@ -92,11 +92,11 @@ View(returnTimes)
 
 ```
 
-## Individually
+# Individually
 
 For each team member, copy this part of the report. 
 
-### Alister
+## Alister
 
 Each team member picks one of the statements in the FiveThirtyEight [analysis](https://fivethirtyeight.com/features/avengers-death-comics-age-of-ultron/) and fact checks it based on the data. Use dplyr functionality whenever possible.
 
@@ -135,7 +135,7 @@ cat("Avengers who died at least once:", sum(unique_deaths$died_at_least_once), "
 
 Include at least one sentence discussing the result of your fact-checking endeavor.
 
-### Brietta
+## Brietta
 
 Each team member picks one of the statements in the FiveThirtyEight [analysis](https://fivethirtyeight.com/features/avengers-death-comics-age-of-ultron/) and fact checks it based on the data. Use dplyr functionality whenever possible.
 
@@ -146,7 +146,7 @@ Each team member picks one of the statements in the FiveThirtyEight [analysis](h
 ### Code
 
 ```{r}
-returnTimes %>% 
+returnTimes = returnTimes %>% 
   filter(Return == "YES")
 
 sum(returnTimes$returns)
@@ -155,10 +155,10 @@ sum(returnTimes$returns)
 
 ### Answer
 
-My code shows that 99 times the avengers had a return after dying, which is much higher than the articles claim of 57 occasions that someone came back
+My code shows that 57 times the avengers had a return after dying, which is exactly the same number that the articles claimed for number of occasions that someone came back after dying.
 
 
-### Brianna
+## Brianna
 
 Each team member picks one of the statements in the FiveThirtyEight [analysis](https://fivethirtyeight.com/features/avengers-death-comics-age-of-ultron/) and fact checks it based on the data. Use dplyr functionality whenever possible.
 
