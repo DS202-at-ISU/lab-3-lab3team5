@@ -7,6 +7,7 @@ output: github_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
 ```
 
 # Lab report #3 - instructions
@@ -36,6 +37,29 @@ Similarly, deal with the returns of characters.
 Based on these datasets calculate the average number of deaths an Avenger suffers. 
 
 ```{r}
+# view(av)
+deaths <- av %>% 
+  pivot_longer(
+    starts_with("Death"),
+    names_to = "Time",
+    values_to = "Died"
+  ) %>% 
+  select(
+    Name.Alias,
+    Time, Died
+  )
+
+
+deaths <- deaths %>% 
+  mutate(
+    Time = parse_number(Time)
+    ) %>%
+  group_by(Name.Alias,Died) %>%
+  summarise(deaths = max(Time)) %>%
+  filter(Name.Alias != "") %>%
+  filter(Died != "")
+  
+View(deaths)
 
 ```
 
