@@ -102,11 +102,35 @@ Each team member picks one of the statements in the FiveThirtyEight [analysis](h
 
 ### FiveThirtyEight Statement
 
-> Quote the statement you are planning to fact-check.
+Out of 173 listed Avengers, my analysis found that 69 had died at least one time after they joined the team
 
 ### Include the code
 
 Make sure to include the code to derive the (numeric) fact for the statement
+
+```{r}
+
+# Assuming the 'deaths' dataset has already been created
+# Fact-check: Calculate the number of unique Avengers who have died at least once
+
+unique_deaths <- deaths %>%
+  filter(Died == "YES", deaths >= 1) %>%
+  summarise(died_at_least_once = n_distinct(Name.Alias))
+
+# Calculate the total number of Avengers
+total_avengers <- av %>%
+  summarise(total = n_distinct(Name.Alias))
+
+# Display the results
+cat("Total Avengers:", total_avengers$total, "\n")
+cat("Avengers who died at least once:", sum(unique_deaths$died_at_least_once), "\n")
+
+
+
+
+```
+
+
 
 ### Include your answer
 
